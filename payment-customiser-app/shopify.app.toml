@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ad76ab353457381fe102f8d7f7085fbf"
+name = "payment-customiser-app"
+handle = "payment-customiser-app"
+application_url = "https://failure-negative-spy-economics.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "teamo-test.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_payment_customizations,write_payment_customizations,write_products"
+
+[auth]
+redirect_urls = [
+  "https://failure-negative-spy-economics.trycloudflare.com/auth/callback",
+  "https://failure-negative-spy-economics.trycloudflare.com/auth/shopify/callback",
+  "https://failure-negative-spy-economics.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
