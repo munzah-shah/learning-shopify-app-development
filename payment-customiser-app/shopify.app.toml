@@ -3,7 +3,7 @@
 client_id = "ad76ab353457381fe102f8d7f7085fbf"
 name = "payment-customiser-app"
 handle = "payment-customiser-app"
-application_url = "https://failure-negative-spy-economics.trycloudflare.com"
+application_url = "https://thriller-operated-discuss-voices.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_payment_customizations,write_payment_customizations,write_product
 
 [auth]
 redirect_urls = [
-  "https://failure-negative-spy-economics.trycloudflare.com/auth/callback",
-  "https://failure-negative-spy-economics.trycloudflare.com/auth/shopify/callback",
-  "https://failure-negative-spy-economics.trycloudflare.com/api/auth/callback"
+  "https://thriller-operated-discuss-voices.trycloudflare.com/auth/callback",
+  "https://thriller-operated-discuss-voices.trycloudflare.com/auth/shopify/callback",
+  "https://thriller-operated-discuss-voices.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

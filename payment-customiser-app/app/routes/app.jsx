@@ -28,8 +28,9 @@ export default function App() {
         data-api-key={apiKey}
       />
       <ui-nav-menu>
-        <Link to="/app" rel="home">Home</Link>
-        <Link to="/app/additional">Additional page</Link>
+        <Link to="/app" rel="home">
+          Home
+        </Link>
       </ui-nav-menu>
       <PolarisAppProvider i18n={polarisTranslations}>
         <Outlet />
