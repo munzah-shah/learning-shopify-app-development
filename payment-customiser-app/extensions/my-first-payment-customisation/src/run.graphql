@@ -1,7 +1,13 @@
 query RunInput {
-  paymentCustomization {
-    metafield(namespace: "$app:my-first-payment-customisation", key: "function-configuration") {
-      value
+  cart {
+    cost {
+      totalAmount {
+        amount
+      }
     }
+  }
+  paymentMethods {
+    id
+    name
   }
 }
