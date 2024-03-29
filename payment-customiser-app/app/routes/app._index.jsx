@@ -15,14 +15,14 @@ export default function Index() {
                   <Text variant="bodyMd" as="p">
                     Please redirect to <b>Settings</b> &#62; <b>Payments</b>
                     &#62; <b>Payment Method Customizations</b> to create a new
-                    customization. Alternatively,
+                    customization. Alternatively,&nbsp;
                     <Link
                       to="https://admin.shopify.com/store/teamo-test/settings/payments/customizations"
                       target="_blank"
                     >
-                      &nbsp; click here
+                      click here
                     </Link>
-                    to add a new customization
+                    &nbsp; to add a new customization
                   </Text>
                 </VerticalStack>
               </VerticalStack>
