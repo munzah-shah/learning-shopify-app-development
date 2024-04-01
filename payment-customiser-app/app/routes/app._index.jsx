@@ -1,31 +1,104 @@
-import { Link } from "@remix-run/react";
-import { Page, Layout, Text, VerticalStack, Card } from "@shopify/polaris";
+import { useLoaderData } from "@remix-run/react";
+import { useState, useEffect } from "react";
+import {
+  Page,
+  Layout,
+  VerticalStack,
+  Text,
+  Divider,
+  Card,
+  Button,
+} from "@shopify/polaris";
+import { authenticate } from "../shopify.server";
+import { json } from "@remix-run/node";
+
+export const loader = async ({ request }) => {
+  const { admin } = await authenticate.admin(request);
+  const response = await admin.graphql(
+    `#graphql
+      query {
+        paymentCustomizations(first: 50) {
+          edges {
+            node {
+              title
+            }
+          }
+        }
+      }`
+  );
+
+  const responseJson = await response.json();
+  const paymentCustomizations =
+    responseJson.data.paymentCustomizations.edges.map(
+      (edge) => edge.node.title
+    );
+
+  return json({
+    paymentCustomizations,
+  });
+};
 
 // add a basic UI for the app's home screen
 export default function Index() {
+  const loaderData = useLoaderData();
+  const [paymentCustomizations, setPaymentCustomizations] = useState(
+    loaderData.paymentCustomizations || []
+  );
+
+  useEffect(() => {
+    if (loaderData.paymentCustomizations) {
+      setPaymentCustomizations(loaderData.paymentCustomizations);
+    }
+  }, [loaderData.paymentCustomizations]);
+
   return (
-    <Page>
-      <ui-title-bar title="Payment Customiser App"></ui-title-bar>
+    <Page title="Welcome to Payment Customization App">
+      {/* page content */}
       <VerticalStack gap="5">
         <Layout>
           <Layout.Section>
             <Card>
-              <VerticalStack gap="2">
-                <VerticalStack gap="2">
-                  <Text variant="bodyMd" as="p">
-                    Please redirect to <b>Settings</b> &#62; <b>Payments</b>
-                    &#62; <b>Payment Method Customizations</b> to create a new
-                    customization. Alternatively,&nbsp;
-                    <Link
-                      to="https://admin.shopify.com/store/teamo-test/settings/payments/customizations"
-                      target="_blank"
-                    >
-                      click here
-                    </Link>
-                    &nbsp; to add a new customization
-                  </Text>
-                </VerticalStack>
-              </VerticalStack>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                  marginBottom: "2rem",
+                }}
+              >
+                <b>
+                  We help you create your own customized checkout experience 🛒
+                </b>
+                <Button
+                  primary
+                  url="https://admin.shopify.com/store/teamo-test/settings/payments/customizations"
+                  target="_blank"
+                >
+                  Create New
+                </Button>
+              </div>
+              <p style={{ marginBottom: "1rem" }}>
+                You have created the following payment customizations:
+              </p>
+              {paymentCustomizations.map((payment, index) => (
+                <>
+                  <Divider borderColor="border" key={index} />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "100%",
+                      height: "60px",
+                    }}
+                  >
+                    <Text as="h2" variant="headingSm">
+                      {payment}
+                    </Text>
+                  </div>
+                </>
+              ))}
             </Card>
           </Layout.Section>
         </Layout>
