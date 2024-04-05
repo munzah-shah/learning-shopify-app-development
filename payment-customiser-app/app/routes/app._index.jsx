@@ -28,10 +28,9 @@ export const loader = async ({ request }) => {
   );
 
   const responseJson = await response.json();
-  const paymentCustomizations =
-    responseJson.data.paymentCustomizations.edges.map(
-      (edge) => edge.node.title
-    );
+  const paymentCustomizations = responseJson.data.paymentCustomizations.edges
+    .slice(1)
+    .map((edge) => edge.node.title);
 
   return json({
     paymentCustomizations,
@@ -79,7 +78,7 @@ export default function Index() {
                 </Button>
               </div>
               <p style={{ marginBottom: "1rem" }}>
-                You have created the following payment customizations:
+                You have created the following payment customizations so far:
               </p>
               {paymentCustomizations.map((payment, index) => (
                 <>
